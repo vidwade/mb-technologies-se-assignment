@@ -76,6 +76,29 @@ A full-stack web application for managing todo tasks, built with FastAPI, Postgr
 
 ## Quick Start
 
+### Linux one-command setup (no Docker)
+
+Use the setup script to install dependencies, generate API schemas, run tests, and prepare the project:
+
+```bash
+chmod +x setup.sh
+./setup.sh
+```
+
+What it does:
+- Installs `uv` (if missing)
+- Syncs backend dependencies
+- Installs frontend dependencies
+- Generates OpenAPI + Zod client
+- Installs pre-commit hooks
+- Runs pre-commit checks and frontend build
+
+After setup, start dev services with:
+
+```bash
+./start-dev.sh
+```
+
 ### Using the tmux startup script (Easiest!)
 
 This script starts both backend and frontend servers plus their test suites in separate tmux tabs:
@@ -145,6 +168,33 @@ npm run dev
 ```
 
 The frontend will be available at http://localhost:3000
+
+### Docker setup
+
+Run the full stack (PostgreSQL + FastAPI + Next.js):
+
+```bash
+docker compose up --build
+```
+
+Services:
+
+- Frontend: http://localhost:3000
+- Backend: http://localhost:8000
+- API Docs: http://localhost:8000/docs
+- PostgreSQL: `localhost:5432` (`postgres` / `123456`)
+
+Run in background:
+
+```bash
+docker compose up --build -d
+```
+
+Stop and remove containers:
+
+```bash
+docker compose down
+```
 
 ## Testing
 
