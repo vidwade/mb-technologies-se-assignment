@@ -73,7 +73,29 @@ A full-stack web application for managing todo tasks, built with FastAPI, Postgr
 
 ## Quick Start
 
-### 1. Database Setup
+### Using the tmux startup script (Easiest!)
+
+This script starts both backend and frontend servers plus their test suites in separate tmux tabs:
+
+```bash
+./start-dev.sh
+```
+
+**Tmux tabs created:**
+1. `backend-server` - FastAPI server on http://localhost:8000
+2. `backend-tests` - Backend test suite with coverage
+3. `frontend-server` - Next.js server on http://localhost:3000
+4. `frontend-tests` - Frontend test suite
+
+**Tmux navigation:**
+- Switch tabs: `Ctrl+b` then `n` (next) or `p` (previous) or `0-3` (tab number)
+- Detach: `Ctrl+b` then `d`
+- Reattach: `tmux attach -t todo-app`
+- Kill session: `tmux kill-session -t todo-app`
+
+### Manual setup
+
+#### 1. Database Setup
 
 Create the PostgreSQL database:
 
@@ -85,7 +107,7 @@ CREATE DATABASE mb_assignment;
 
 Default connection string: `postgresql://postgres:123456@localhost:5432/mb_assignment`
 
-### 2. Backend Setup
+#### 2. Backend Setup
 
 **Using uv (recommended - no venv needed!):**
 
@@ -109,7 +131,7 @@ The backend will be available at http://localhost:8000
 
 **API Documentation**: http://localhost:8000/docs
 
-### 3. Frontend Setup
+#### 3. Frontend Setup
 
 ```bash
 cd frontend
