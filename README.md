@@ -65,10 +65,11 @@ A full-stack web application for managing todo tasks, built with FastAPI, Postgr
 
 ## Prerequisites
 
-- **Python 3.11+** (with uv recommended)
+- **Python 3.11+** with **uv** (recommended - no venv needed!)
+  - Install uv: `curl -LsSf https://astral.sh/uv/install.sh | sh`
 - **Node.js 18+**
 - **PostgreSQL 14+**
-- **npm or yarn**
+- **npm**
 
 ## Quick Start
 
@@ -86,15 +87,15 @@ Default connection string: `postgresql://postgres:123456@localhost:5432/mb_assig
 
 ### 2. Backend Setup
 
-Using **uv** (recommended):
+**Using uv (recommended - no venv needed!):**
 
 ```bash
 cd backend
 uv pip install -r requirements.txt
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+uv run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-Or using traditional **pip**:
+**Or using traditional pip:**
 
 ```bash
 cd backend
@@ -122,11 +123,21 @@ The frontend will be available at http://localhost:3000
 
 ### Backend Tests
 
+**With uv:**
 ```bash
 cd backend
-pytest                    # Run all tests
-pytest --cov=app         # Run with coverage
-pytest -v                # Verbose output
+uv run pytest                 # Run all tests
+uv run pytest --cov=app      # Run with coverage
+uv run pytest -v             # Verbose output
+```
+
+**With traditional pip:**
+```bash
+cd backend
+source venv/bin/activate
+pytest                        # Run all tests
+pytest --cov=app             # Run with coverage
+pytest -v                    # Verbose output
 ```
 
 Test coverage includes:
@@ -218,8 +229,16 @@ NEXT_PUBLIC_API_URL=http://localhost:8000
 
 ### Backend Development
 
+**With uv:**
 ```bash
 cd backend
+uv run uvicorn app.main:app --reload  # Auto-reload on changes
+```
+
+**With traditional pip:**
+```bash
+cd backend
+source venv/bin/activate
 uvicorn app.main:app --reload  # Auto-reload on changes
 ```
 
@@ -272,7 +291,8 @@ Frontend follows:
 - Check connection string in `.env`
 
 **Import errors:**
-- Ensure all dependencies installed: `uv pip install -r requirements.txt`
+- With uv: `uv pip install -r requirements.txt`
+- With pip: Ensure virtual environment is activated and dependencies installed
 - Check Python version: `python --version` (3.11+)
 
 ### Frontend Issues

@@ -4,50 +4,58 @@ FastAPI backend for the Todo Task application.
 
 ## Setup
 
-### Using uv (Recommended)
-
-1. Install dependencies:
 ```bash
 cd backend
+
+# Install dependencies directly with uv
 uv pip install -r requirements.txt
+
+# Set up environment (optional, defaults are pre-configured)
+cp .env.example .env
+
+# Run the application
+uv run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-### Using pip (Alternative)
+### Using traditional pip (Alternative)
 
-1. Create virtual environment:
 ```bash
 cd backend
+
+# Create and activate virtual environment
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
+source venv/bin/activate  # Windows: venv\Scripts\activate
 
-2. Install dependencies:
-```bash
+# Install dependencies
 pip install -r requirements.txt
-```
 
-3. Set up environment variables:
-```bash
+# Set up environment
 cp .env.example .env
-# The default DATABASE_URL is already configured for PostgreSQL
-```
 
-4. Make sure PostgreSQL is running and the database exists:
-```bash
-# Database: mb_assignment
-# Default connection: postgresql://postgres:123456@localhost:5432/mb_assignment
-```
-
-5. Run the application:
-```bash
+# Run the application
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
+**Database**: PostgreSQL must be running with database `mb_assignment`
+
+- Connection: `postgresql://postgres:123456@localhost:5432/mb_assignment`
+
 ## Testing
 
-Run tests with coverage:
+### With uv
+
 ```bash
-pytest
+uv run pytest                 # Run all tests
+uv run pytest --cov=app      # With coverage
+uv run pytest -v             # Verbose
+```
+
+### With traditional pip
+
+```bash
+pytest                        # Run all tests
+pytest --cov=app             # With coverage
+pytest -v                    # Verbose
 ```
 
 ## API Endpoints
