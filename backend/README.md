@@ -4,6 +4,16 @@ FastAPI backend for the Todo Task application.
 
 ## Setup
 
+### Using uv (Recommended)
+
+1. Install dependencies:
+```bash
+cd backend
+uv pip install -r requirements.txt
+```
+
+### Using pip (Alternative)
+
 1. Create virtual environment:
 ```bash
 cd backend
@@ -19,10 +29,16 @@ pip install -r requirements.txt
 3. Set up environment variables:
 ```bash
 cp .env.example .env
-# Edit .env with your database URL
+# The default DATABASE_URL is already configured for PostgreSQL
 ```
 
-4. Run the application:
+4. Make sure PostgreSQL is running and the database exists:
+```bash
+# Database: mb_assignment
+# Default connection: postgresql://postgres:123456@localhost:5432/mb_assignment
+```
+
+5. Run the application:
 ```bash
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
