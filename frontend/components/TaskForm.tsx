@@ -55,7 +55,6 @@ export function TaskForm({ onSubmit }: TaskFormProps) {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               disabled={isSubmitting}
-              required
             />
           </div>
           
@@ -70,7 +69,6 @@ export function TaskForm({ onSubmit }: TaskFormProps) {
               onChange={(e) => setDescription(e.target.value)}
               disabled={isSubmitting}
               rows={4}
-              required
             />
           </div>
 

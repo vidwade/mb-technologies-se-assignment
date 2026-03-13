@@ -49,8 +49,9 @@ describe('TaskCard', () => {
     };
     
     const mockOnComplete = jest.fn();
-    render(<TaskCard task={multiLineTask} onComplete={mockOnComplete} />);
+    const { container } = render(<TaskCard task={multiLineTask} onComplete={mockOnComplete} />);
 
-    expect(screen.getByText('Line 1\nLine 2\nLine 3')).toBeInTheDocument();
+    const descriptionElement = container.querySelector('.whitespace-pre-wrap');
+    expect(descriptionElement?.textContent).toBe('Line 1\nLine 2\nLine 3');
   });
 });

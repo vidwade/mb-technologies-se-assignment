@@ -29,7 +29,7 @@ class TaskRepository:
         return (
             db.query(Task)
             .filter(Task.is_completed == False)
-            .order_by(desc(Task.created_at))
+            .order_by(desc(Task.created_at), desc(Task.id))
             .limit(limit)
             .all()
         )

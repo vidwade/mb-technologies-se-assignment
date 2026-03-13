@@ -62,9 +62,7 @@ DB Backend^ Frontend^
   repository.
 - Make sure to add a README file that clearly states the instructions to build and run the
   project.
-- Assessment should be submitted within 3 days.
 
 ```
-If you have any questions about this assessment, feel free to reach out to the recruiter that sent
-you this assessment.
+
 ```

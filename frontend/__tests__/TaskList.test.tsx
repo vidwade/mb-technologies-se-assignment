@@ -24,9 +24,9 @@ const mockTasks: Task[] = [
 describe('TaskList', () => {
   it('shows loading spinner when isLoading is true', () => {
     const mockOnComplete = jest.fn();
-    render(<TaskList tasks={[]} onComplete={mockOnComplete} isLoading={true} />);
+    const { container } = render(<TaskList tasks={[]} onComplete={mockOnComplete} isLoading={true} />);
 
-    expect(screen.getByRole('img', { hidden: true })).toBeInTheDocument(); // Lucide icons have role="img"
+    expect(container.querySelector('.animate-spin')).toBeInTheDocument();
   });
 
   it('shows empty state when no tasks are available', () => {

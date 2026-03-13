@@ -8,7 +8,7 @@ tmux new-session -d -s todo-app -n "backend-server"
 tmux send-keys -t todo-app:backend-server "cd backend" C-m
 tmux send-keys -t todo-app:backend-server "echo '=== Backend Server ==='" C-m
 tmux send-keys -t todo-app:backend-server "echo 'Installing dependencies...'" C-m
-tmux send-keys -t todo-app:backend-server "uv pip install -r requirements.txt" C-m
+tmux send-keys -t todo-app:backend-server "uv pip install --system -r requirements.txt" C-m
 tmux send-keys -t todo-app:backend-server "echo 'Starting backend server on http://localhost:8000'" C-m
 tmux send-keys -t todo-app:backend-server "uv run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000" C-m
 
