@@ -259,6 +259,13 @@ This command:
 
 ```bash
 uvx pre-commit install
+uvx pre-commit run --all-files
+```
+
+If you want to run `pre-commit` directly without `uvx`, install it once:
+
+```bash
+uv tool install pre-commit
 pre-commit run --all-files
 ```
 
