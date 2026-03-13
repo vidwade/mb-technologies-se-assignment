@@ -16,6 +16,7 @@ A full-stack web application for managing todo tasks, built with FastAPI, Postgr
 ## Tech Stack
 
 ### Backend
+
 - **FastAPI** - Modern Python web framework
 - **PostgreSQL** - Relational database
 - **SQLAlchemy** - ORM for database operations
@@ -24,6 +25,7 @@ A full-stack web application for managing todo tasks, built with FastAPI, Postgr
 - **pytest** - Testing framework with coverage
 
 ### Frontend
+
 - **Next.js 14** - React framework with App Router
 - **TypeScript** - Type safety
 - **Tailwind CSS** - Utility-first styling
@@ -32,6 +34,7 @@ A full-stack web application for managing todo tasks, built with FastAPI, Postgr
 - **Jest & React Testing Library** - Testing
 
 ### Database
+
 - **PostgreSQL** - Production-ready relational database
 
 ## Project Structure
@@ -82,12 +85,14 @@ This script starts both backend and frontend servers plus their test suites in s
 ```
 
 **Tmux tabs created:**
+
 1. `backend-server` - FastAPI server on http://localhost:8000
 2. `backend-tests` - Backend test suite with coverage
 3. `frontend-server` - Next.js server on http://localhost:3000
 4. `frontend-tests` - Frontend test suite
 
 **Tmux navigation:**
+
 - Switch tabs: `Ctrl+b` then `n` (next) or `p` (previous) or `0-3` (tab number)
 - Detach: `Ctrl+b` then `d`
 - Reattach: `tmux attach -t todo-app`
@@ -109,7 +114,7 @@ Default connection string: `postgresql://postgres:123456@localhost:5432/mb_assig
 
 #### 2. Backend Setup
 
-**Using uv (recommended - no venv needed!):**
+**Using uv (recommended):**
 
 ```bash
 cd backend
@@ -146,6 +151,7 @@ The frontend will be available at http://localhost:3000
 ### Backend Tests
 
 **With uv:**
+
 ```bash
 cd backend
 uv run pytest                 # Run all tests
@@ -154,6 +160,7 @@ uv run pytest -v             # Verbose output
 ```
 
 **With traditional pip:**
+
 ```bash
 cd backend
 source venv/bin/activate
@@ -163,6 +170,7 @@ pytest -v                    # Verbose output
 ```
 
 Test coverage includes:
+
 - Unit tests for repository layer
 - Integration tests for API endpoints
 - Validation and error handling
@@ -178,6 +186,7 @@ npm run test:coverage   # With coverage
 ```
 
 Test coverage includes:
+
 - Component rendering
 - User interactions
 - Form validation
@@ -192,6 +201,7 @@ npm run generate:api
 ```
 
 This command:
+
 - Exports backend OpenAPI JSON to `frontend/lib/generated/openapi.json`
 - Generates Zod schemas/client at `frontend/lib/generated/api-client.ts`
 
@@ -203,6 +213,7 @@ pre-commit run --all-files
 ```
 
 Pre-commit runs:
+
 - API generation (`npm run generate:api`)
 - Frontend tests
 - Backend tests with coverage
@@ -210,9 +221,11 @@ Pre-commit runs:
 ## API Endpoints
 
 ### Health Check
+
 - `GET /health` - API health status
 
 ### Tasks
+
 - `GET /tasks/` - Get 5 most recent incomplete tasks
   - Query params: `limit` (default: 5), `offset` (default: 0)
   - Returns: `{ tasks: Task[], total: number }`
@@ -228,14 +241,14 @@ Pre-commit runs:
 
 ### tasks table
 
-| Column | Type | Description |
-|--------|------|-------------|
-| id | INTEGER | Primary key |
-| title | VARCHAR(255) | Task title |
-| description | TEXT | Task description |
-| is_completed | BOOLEAN | Completion status |
-| created_at | TIMESTAMP | Creation timestamp |
-| completed_at | TIMESTAMP | Completion timestamp (nullable) |
+| Column       | Type         | Description                     |
+| ------------ | ------------ | ------------------------------- |
+| id           | INTEGER      | Primary key                     |
+| title        | VARCHAR(255) | Task title                      |
+| description  | TEXT         | Task description                |
+| is_completed | BOOLEAN      | Completion status               |
+| created_at   | TIMESTAMP    | Creation timestamp              |
+| completed_at | TIMESTAMP    | Completion timestamp (nullable) |
 
 ## Architecture & Design Principles
 
@@ -245,7 +258,7 @@ Pre-commit runs:
   - Routes → Service → Repository → Database
 - **Repository Pattern**: Data access abstraction
 - **Dependency Injection**: Using FastAPI's DI system
-- **SOLID Principles**: 
+- **SOLID Principles**:
   - Single Responsibility: Each class has one purpose
   - Open/Closed: Extensible without modification
   - Dependency Inversion: Depend on abstractions
@@ -260,12 +273,14 @@ Pre-commit runs:
 ## Environment Variables
 
 ### Backend (.env)
+
 ```
 DATABASE_URL=postgresql://postgres:123456@localhost:5432/mb_assignment
 ENVIRONMENT=development
 ```
 
 ### Frontend (.env.local)
+
 ```
 NEXT_PUBLIC_API_URL=http://localhost:8000
 ```
@@ -275,12 +290,14 @@ NEXT_PUBLIC_API_URL=http://localhost:8000
 ### Backend Development
 
 **With uv:**
+
 ```bash
 cd backend
 uv run uvicorn app.main:app --reload  # Auto-reload on changes
 ```
 
 **With traditional pip:**
+
 ```bash
 cd backend
 source venv/bin/activate
@@ -297,12 +314,14 @@ npm run dev  # Hot reload enabled
 ### Code Quality
 
 Backend follows:
+
 - PEP 8 style guide
 - Type hints throughout
 - Comprehensive docstrings
 - Clean code principles
 
 Frontend follows:
+
 - ESLint configuration
 - TypeScript strict mode
 - Component best practices
@@ -331,11 +350,13 @@ Frontend follows:
 ### Backend Issues
 
 **Database connection failed:**
+
 - Check PostgreSQL is running: `pg_isready`
 - Verify database exists: `psql -U postgres -l`
 - Check connection string in `.env`
 
 **Import errors:**
+
 - With uv: `uv pip install -r requirements.txt`
 - With pip: Ensure virtual environment is activated and dependencies installed
 - Check Python version: `python --version` (3.11+)
@@ -343,11 +364,13 @@ Frontend follows:
 ### Frontend Issues
 
 **API connection failed:**
+
 - Ensure backend is running on port 8000
 - Check `.env.local` has correct API URL
 - Verify CORS is configured in backend
 
 **Build errors:**
+
 - Clear Next.js cache: `rm -rf .next`
 - Reinstall dependencies: `rm -rf node_modules && npm install`
 
