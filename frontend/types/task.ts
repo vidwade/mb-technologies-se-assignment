@@ -1,18 +1,7 @@
-export interface Task {
-  id: number;
-  title: string;
-  description: string;
-  is_completed: boolean;
-  created_at: string;
-  completed_at: string | null;
-}
+import { z } from 'zod';
 
-export interface TaskCreate {
-  title: string;
-  description: string;
-}
+import { schemas } from '@/lib/generated/api-client';
 
-export interface TaskListResponse {
-  tasks: Task[];
-  total: number;
-}
+export type Task = z.infer<typeof schemas.TaskResponse>;
+export type TaskCreate = z.infer<typeof schemas.TaskCreate>;
+export type TaskListResponse = z.infer<typeof schemas.TaskListResponse>;

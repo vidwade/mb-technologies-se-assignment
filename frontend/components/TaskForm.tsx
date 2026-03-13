@@ -5,12 +5,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Plus } from "lucide-react";
 
 interface TaskFormProps {
   onSubmit: (title: string, description: string) => Promise<void>;
+  theme?: "light" | "dark";
 }
 
-export function TaskForm({ onSubmit }: TaskFormProps) {
+export function TaskForm({ onSubmit, theme = "light" }: TaskFormProps) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -39,14 +41,14 @@ export function TaskForm({ onSubmit }: TaskFormProps) {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Create New Task</CardTitle>
+    <Card className={theme === "dark" ? "border-slate-700 bg-slate-900 shadow-sm" : "border-slate-200 bg-white shadow-sm"}>
+      <CardHeader className="pb-4">
+        <CardTitle className={theme === "dark" ? "text-2xl font-bold tracking-tight text-slate-100" : "text-2xl font-bold tracking-tight text-slate-900"}>Add a Task</CardTitle>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div className="space-y-2">
-            <label htmlFor="title" className="text-sm font-medium">
+            <label htmlFor="title" className={theme === "dark" ? "text-sm font-semibold text-slate-300" : "text-sm font-semibold text-slate-700"}>
               Title
             </label>
             <Input
@@ -55,11 +57,12 @@ export function TaskForm({ onSubmit }: TaskFormProps) {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               disabled={isSubmitting}
+              className={theme === "dark" ? "h-11 border-slate-700 bg-slate-800 text-slate-100 placeholder:text-slate-500 focus-visible:ring-slate-500" : "h-11 border-slate-200 text-slate-900 placeholder:text-slate-400 focus-visible:ring-slate-300"}
             />
           </div>
           
           <div className="space-y-2">
-            <label htmlFor="description" className="text-sm font-medium">
+            <label htmlFor="description" className={theme === "dark" ? "text-sm font-semibold text-slate-300" : "text-sm font-semibold text-slate-700"}>
               Description
             </label>
             <Textarea
@@ -69,14 +72,20 @@ export function TaskForm({ onSubmit }: TaskFormProps) {
               onChange={(e) => setDescription(e.target.value)}
               disabled={isSubmitting}
               rows={4}
+              className={theme === "dark" ? "min-h-32 resize-none border-slate-700 bg-slate-800 text-slate-100 placeholder:text-slate-500 focus-visible:ring-slate-500" : "min-h-32 resize-none border-slate-200 text-slate-900 placeholder:text-slate-400 focus-visible:ring-slate-300"}
             />
           </div>
 
           {error && (
-            <p className="text-sm text-red-500">{error}</p>
+            <p className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-600">{error}</p>
           )}
 
-          <Button type="submit" disabled={isSubmitting} className="w-full">
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            className="h-11 w-full bg-blue-600 text-white transition hover:bg-blue-700"
+          >
+            <Plus className="mr-2 h-4 w-4" />
             {isSubmitting ? "Creating..." : "Create Task"}
           </Button>
         </form>

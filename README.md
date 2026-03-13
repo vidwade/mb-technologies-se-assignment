@@ -184,6 +184,29 @@ Test coverage includes:
 - API integration
 - Loading and error states
 
+### API Schema Generation (OpenAPI -> Zod)
+
+```bash
+cd frontend
+npm run generate:api
+```
+
+This command:
+- Exports backend OpenAPI JSON to `frontend/lib/generated/openapi.json`
+- Generates Zod schemas/client at `frontend/lib/generated/api-client.ts`
+
+### Pre-commit Hooks
+
+```bash
+uvx pre-commit install
+pre-commit run --all-files
+```
+
+Pre-commit runs:
+- API generation (`npm run generate:api`)
+- Frontend tests
+- Backend tests with coverage
+
 ## API Endpoints
 
 ### Health Check
@@ -191,7 +214,7 @@ Test coverage includes:
 
 ### Tasks
 - `GET /tasks/` - Get 5 most recent incomplete tasks
-  - Query params: `limit` (default: 5)
+  - Query params: `limit` (default: 5), `offset` (default: 0)
   - Returns: `{ tasks: Task[], total: number }`
 
 - `POST /tasks/` - Create a new task

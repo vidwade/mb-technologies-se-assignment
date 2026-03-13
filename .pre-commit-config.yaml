@@ -1,0 +1,18 @@
+repos:
+  - repo: local
+    hooks:
+      - id: generate-openapi-zod
+        name: Generate OpenAPI and Zod client
+        entry: bash -lc 'cd frontend && npm run generate:api && git diff --exit-code -- lib/generated/openapi.json lib/generated/api-client.ts'
+        language: system
+        pass_filenames: false
+      - id: frontend-tests
+        name: Run frontend tests
+        entry: bash -lc 'cd frontend && npm test -- --runInBand'
+        language: system
+        pass_filenames: false
+      - id: backend-tests
+        name: Run backend tests
+        entry: bash -lc 'cd backend && uv run pytest --cov=app -v'
+        language: system
+        pass_filenames: false

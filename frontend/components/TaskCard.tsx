@@ -8,9 +8,10 @@ import { CheckCircle2 } from "lucide-react";
 interface TaskCardProps {
   task: Task;
   onComplete: (taskId: number) => Promise<void>;
+  theme?: "light" | "dark";
 }
 
-export function TaskCard({ task, onComplete }: TaskCardProps) {
+export function TaskCard({ task, onComplete, theme = "light" }: TaskCardProps) {
   const handleComplete = async () => {
     await onComplete(task.id);
   };
@@ -24,23 +25,23 @@ export function TaskCard({ task, onComplete }: TaskCardProps) {
   });
 
   return (
-    <Card className="hover:shadow-lg transition-shadow">
-      <CardHeader>
-        <CardTitle className="text-lg">{task.title}</CardTitle>
-        <CardDescription className="text-xs text-muted-foreground">
+    <Card className={theme === "dark" ? "rounded-2xl border-slate-700 bg-slate-800/80 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-md" : "rounded-2xl border-slate-200 bg-slate-100/80 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-md"}>
+      <CardHeader className="pb-3">
+        <CardTitle className={theme === "dark" ? "text-2xl font-bold tracking-tight text-slate-100" : "text-2xl font-bold tracking-tight text-slate-900"}>{task.title}</CardTitle>
+        <CardDescription className={theme === "dark" ? "text-xs font-medium text-slate-400" : "text-xs font-medium text-slate-500"}>
           {formattedDate}
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <p className="text-sm text-gray-700 whitespace-pre-wrap">
+      <CardContent className="pb-4">
+        <p className={theme === "dark" ? "whitespace-pre-wrap text-base leading-relaxed text-slate-300" : "whitespace-pre-wrap text-base leading-relaxed text-slate-700"}>
           {task.description}
         </p>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="pt-0">
         <Button
           onClick={handleComplete}
-          variant="default"
-          className="w-full"
+          variant="outline"
+          className={theme === "dark" ? "w-full border-slate-500 bg-slate-900 font-semibold text-slate-200 transition hover:border-slate-300 hover:bg-slate-700" : "w-full border-slate-400 bg-white font-semibold text-slate-700 transition hover:border-slate-600 hover:bg-slate-50"}
           size="sm"
         >
           <CheckCircle2 className="mr-2 h-4 w-4" />

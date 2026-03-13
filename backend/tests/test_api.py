@@ -1,6 +1,3 @@
-import pytest
-
-
 class TestTaskAPI:
     """Integration tests for Task API endpoints"""
 
@@ -80,6 +77,22 @@ class TestTaskAPI:
         assert response.status_code == 200
         data = response.json()
         assert len(data["tasks"]) == 3
+
+    def test_get_tasks_with_offset(self, client):
+        """Test getting tasks with custom offset"""
+        for i in range(6):
+            client.post("/tasks/", json={
+                "title": f"Task {i}",
+                "description": f"Description {i}"
+            })
+
+        response = client.get("/tasks/?limit=2&offset=2")
+
+        assert response.status_code == 200
+        data = response.json()
+        assert len(data["tasks"]) == 2
+        assert data["tasks"][0]["title"] == "Task 3"
+        assert data["tasks"][1]["title"] == "Task 2"
 
     def test_complete_task_success(self, client):
         """Test completing a task successfully"""

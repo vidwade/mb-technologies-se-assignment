@@ -205,3 +205,8 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+!frontend/lib/
+!frontend/lib/generated/
+!frontend/lib/generated/openapi.json
+!frontend/lib/generated/api-client.ts

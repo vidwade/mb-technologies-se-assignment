@@ -1,6 +1,4 @@
-from datetime import datetime
-from typing import List
-
+from datetime import datetime, timezone
 from sqlalchemy import desc
 from sqlalchemy.orm import Session
 
@@ -24,12 +22,13 @@ class TaskRepository:
         return task
 
     @staticmethod
-    def get_recent_tasks(db: Session, limit: int = 5) -> List[Task]:
+    def get_recent_tasks(db: Session, limit: int = 5, offset: int = 0) -> list[Task]:
         """Get most recent incomplete tasks"""
         return (
             db.query(Task)
             .filter(Task.is_completed == False)
             .order_by(desc(Task.created_at), desc(Task.id))
+            .offset(offset)
             .limit(limit)
             .all()
         )
@@ -44,8 +43,8 @@ class TaskRepository:
         """Mark a task as completed"""
         task = db.query(Task).filter(Task.id == task_id).first()
         if task:
-            task.is_completed = True
-            task.completed_at = datetime.utcnow()
+            setattr(task, "is_completed", True)
+            setattr(task, "completed_at", datetime.now(timezone.utc))
             db.commit()
             db.refresh(task)
         return task

@@ -16,9 +16,9 @@ class TaskService:
         task = self.repository.create_task(self.db, task_data)
         return TaskResponse.model_validate(task)
 
-    def get_recent_tasks(self, limit: int = 5) -> list[TaskResponse]:
+    def get_recent_tasks(self, limit: int = 5, offset: int = 0) -> list[TaskResponse]:
         """Get most recent incomplete tasks"""
-        tasks = self.repository.get_recent_tasks(self.db, limit)
+        tasks = self.repository.get_recent_tasks(self.db, limit, offset)
         return [TaskResponse.model_validate(task) for task in tasks]
 
     def complete_task(self, task_id: int) -> TaskResponse | None:

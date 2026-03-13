@@ -9,17 +9,22 @@
     "lint": "eslint",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "generate:openapi": "sh -c 'cd ../backend && uv run python -m app.cli.export_openapi --output ../frontend/lib/generated/openapi.json'",
+    "generate:zod": "openapi-zod-client \"./lib/generated/openapi.json\" -o \"./lib/generated/api-client.ts\" --export-schemas --export-types",
+    "generate:api": "npm run generate:openapi && npm run generate:zod"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.4",
+    "@zodios/core": "^10.9.6",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.577.0",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "tailwind-merge": "^3.5.0"
+    "tailwind-merge": "^3.5.0",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -33,6 +38,7 @@
     "eslint-config-next": "16.1.6",
     "jest": "^30.3.0",
     "jest-environment-jsdom": "^30.3.0",
+    "openapi-zod-client": "^1.18.3",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
