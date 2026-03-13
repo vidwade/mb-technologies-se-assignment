@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class TaskBase(BaseModel):
@@ -17,13 +17,12 @@ class TaskCreate(TaskBase):
 
 class TaskResponse(TaskBase):
     """Schema for task response"""
+    model_config = ConfigDict(from_attributes=True)
+
     id: int
     is_completed: bool
     created_at: datetime
     completed_at: Optional[datetime] = None
-
-    class Config:
-        from_attributes = True
 
 
 class TaskListResponse(BaseModel):
