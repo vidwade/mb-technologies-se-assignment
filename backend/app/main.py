@@ -1,8 +1,16 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.database import Base, engine
 from app.routes import router as tasks_router
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    Base.metadata.create_all(bind=engine)
+    yield
 
 
 def create_app() -> FastAPI:
@@ -11,6 +19,7 @@ def create_app() -> FastAPI:
         description="REST API for managing todo tasks",
         version="1.0.0",
         openapi_version="3.0.3",
+        lifespan=lifespan,
     )
 
     app.add_middleware(
@@ -26,11 +35,6 @@ def create_app() -> FastAPI:
 
 
 app = create_app()
-
-
-@app.on_event("startup")
-def startup() -> None:
-    Base.metadata.create_all(bind=engine)
 
 
 @app.get("/health")

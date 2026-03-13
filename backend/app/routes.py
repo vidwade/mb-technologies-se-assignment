@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
 
 from app.database import get_db
@@ -25,8 +25,8 @@ def create_task(
 
 @router.get("/", response_model=TaskListResponse, operation_id="getTasks")
 def get_tasks(
-    limit: int = 5,
-    offset: int = 0,
+    limit: int = Query(default=5, ge=1, le=100),
+    offset: int = Query(default=0, ge=0),
     db: Session = Depends(get_db)
 ):
     """Get most recent incomplete tasks"""
